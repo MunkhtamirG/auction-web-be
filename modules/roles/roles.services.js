@@ -1,31 +1,31 @@
 const Roles = require("./role.model");
 
-const getRoles = () => {
-  return Roles.find();
-};
-
 const createRole = async (req) => {
   const roles = new Roles(req.body);
-  return await roles.save();
+  return roles.save();
+};
+
+const getAll = (req) => {
+  return Roles.find();
 };
 
 const updateRole = async (req) => {
   const { id } = req.query;
-  const role = await Roles.findByIdAndUpdate(id, req.body);
-  const roles = await Roles.findById(id);
-  return await roles;
+  await Roles.findByIdAndUpdate(id, req.body);
+  const role = await Roles.findById(id);
+  return role;
 };
 
 const deleteRole = async (req) => {
   const { id } = req.params;
   const role = await Roles.findByIdAndDelete(id);
-  return await role;
+  return role;
 };
 
-const getRoleById = async (req) => {
+const getById = async (req) => {
   const { id } = req.params;
   const role = await Roles.findById(id);
-  return await role;
+  return role;
 };
 
-module.exports = { createRole, getRoles, updateRole, deleteRole, getRoleById };
+module.exports = { getAll, createRole, updateRole, deleteRole, getById };

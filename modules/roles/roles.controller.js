@@ -1,40 +1,60 @@
 const rolesServices = require("./roles.services");
 
-const getRoles = async (req, res) => {
-  const roles = await rolesServices.getRoles();
-  res.json({ data: roles });
-};
-
-const createRole = async (req, res) => {
+const create = async (req, res) => {
   try {
     const role = await rolesServices.createRole(req);
-    res.json({ data: role });
+    res.json({
+      data: role,
+    });
   } catch (error) {
-    res.json({ error: error });
+    res.json({
+      error: error,
+    });
   }
-};
-
-const updateRole = async (req, res) => {
-  const roles = await rolesServices.updateRole(req);
-  res.json({ date: roles });
 };
 
 const deleteRole = async (req, res) => {
   try {
-    const roles = await rolesServices.deleteRole(req);
-    await res.json({ success: true, data: roles });
+    const role = await rolesServices.deleteRole(req);
+    res.json({
+      success: true,
+      data: role,
+    });
   } catch (error) {
-    res.json({ success: false, data: error });
+    res.json({
+      success: false,
+      data: error,
+    });
   }
 };
 
-const getRoleById = async (req, res) => {
+const update = async (req, res) => {
+  const role = await rolesServices.updateRole(req);
+  res.json({
+    data: role,
+  });
+};
+
+const getAll = async (req, res) => {
+  const roles = await rolesServices.getAll(req);
+  res.json({
+    data: roles,
+  });
+};
+
+const getById = async (req, res) => {
   try {
-    const roles = await rolesServices.getRoleById(req);
-    await res.json({ success: true, data: roles });
-  } catch (error) {
-    res.json({ success: false, data: error });
+    const role = await rolesServices.getById(req);
+    res.json({
+      success: true,
+      data: role,
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      data: err,
+    });
   }
 };
 
-module.exports = { getRoles, createRole, updateRole, deleteRole, getRoleById };
+module.exports = { create, deleteRole, update, getAll, getById };
